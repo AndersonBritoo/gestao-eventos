@@ -1,0 +1,21 @@
+# Dependências (o mais importante!)
+node_modules/
+
+# Pastas de build / produção
+dist/
+build/
+
+# Variáveis de ambiente e segredos (palavras-passe, chaves de API, etc.)
+.env
+.env.local
+.env.*.local
+
+# Ficheiros de logs (erros e execuções)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Ficheiros do sistema operativo e editores
+.DS_Store
+Thumbs.db
+.vscode/
