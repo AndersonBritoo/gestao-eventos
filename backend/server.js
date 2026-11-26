@@ -1,0 +1,26 @@
+import express from "express";
+import cors from "cors";
+import { listar, obter, criar } from "./data/utilizadores.js";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.get("/api/utilizadores", async (req, res) => {
+  res.json(await listar());
+});
+
+app.get("/api/utilizadores/:id", async (req, res) => {
+  const u = await obter(req.params.id);
+  if (!u) return res.status(404).json({ erro: "Utilizador não encontrado" });
+  res.json(u);
+});
+
+app.post("/api/utilizadores", async (req, res) => {
+  const { nome, email } = req.body;
+  if (!nome || !email)
+    return res.status(400).json({ erro: "nome e email são obrigatórios" });
+  res.status(201).json(await criar({ nome, email }));
+});
+
+app.listen(4000, () => console.log("API em http://localhost:4000"));
