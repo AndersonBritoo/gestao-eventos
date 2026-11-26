@@ -1,31 +1,29 @@
-let utilizadores = [
-  { id: 1, nome: "Ana Silva", email: "ana@exemplo.pt" },
-  { id: 2, nome: "Rui Costa", email: "rui@exemplo.pt" },
-];
-let proximoId = 3;
+import mongoose from "mongoose";
+import Utilizador from "../models/Utilizador.js";
 
-export const listar = async () => utilizadores;
+const idValido = (id) => mongoose.isValidObjectId(id);
 
-export const obter = async (id) =>
-  utilizadores.find((u) => u.id === Number(id)) || null;
+export const listar = async () => Utilizador.find();
 
-export const criar = async ({ nome, email }) => {
-  const novo = { id: proximoId++, nome, email };
-  utilizadores.push(novo);
-  return novo;
+export const obter = async (id) => {
+  if (!idValido(id)) return null;
+  return Utilizador.findById(id);
 };
 
+export const criar = async ({ nome, email }) =>
+  Utilizador.create({ nome, email });
+
 export const atualizar = async (id, { nome, email }) => {
-  const u = utilizadores.find((x) => x.id === Number(id));
-  if (!u) return null;
-  u.nome = nome;
-  u.email = email;
-  return u;
+  if (!idValido(id)) return null;
+  return Utilizador.findByIdAndUpdate(
+    id,
+    { nome, email },
+    { new: true, runValidators: true }
+  );
 };
 
 export const apagar = async (id) => {
-  const i = utilizadores.findIndex((x) => x.id === Number(id));
-  if (i === -1) return false;
-  utilizadores.splice(i, 1);
-  return true;
+  if (!idValido(id)) return false;
+  const r = await Utilizador.findByIdAndDelete(id);
+  return r !== null;
 };
