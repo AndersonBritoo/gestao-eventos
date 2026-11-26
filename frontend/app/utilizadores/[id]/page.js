@@ -1,4 +1,5 @@
 import Link from "next/link";
+import BotaoApagar from "./BotaoApagar";
 
 export default async function Detalhe({ params }) {
   const { id } = await params;
@@ -13,6 +14,9 @@ export default async function Detalhe({ params }) {
     <main style={{ padding: 24 }}>
       <h1>{u.nome}</h1>
       <p>Email: {u.email}</p>
+      <Link href={`/utilizadores/${u.id}/editar`}>Editar</Link>{" "}
+      <BotaoApagar id={u.id} />
+      <br />
       <Link href="/utilizadores">← Voltar</Link>
     </main>
   );
