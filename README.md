@@ -1,3 +1,3 @@
-# Info Project
+# Project
 
-Este projeto nesta branch é só para perceber e foi usado o next que n sei se ira ser usado no final
+Simple and basic Next.js implementation of the CRUD processes
