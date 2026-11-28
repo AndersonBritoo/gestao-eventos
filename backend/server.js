@@ -9,8 +9,8 @@ const app = express();
 app.use(express.json());
 
 const itensSchema = new mongoose.Schema({
-	nome: {type: String, required: true},
-})
+	nome: {type: String, required: true}
+});
 
 const Item = mongoose.model("Item", itensSchema, "itens");
 
